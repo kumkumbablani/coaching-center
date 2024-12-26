@@ -1,10 +1,14 @@
 package com.coaching.center.repository;
 
 import com.coaching.center.model.Course;
-import com.coaching.center.model.CourseOutput;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface CourseRepository {
-    Course getCourseById();
+import java.util.List;
 
-    CourseOutput createCourse(Course course);
+public interface CourseRepository{
+    Course save(Course course);
+    List<Course> findAll();
+    String createCourse(Course course);
+    Course findById(Long id);
 }

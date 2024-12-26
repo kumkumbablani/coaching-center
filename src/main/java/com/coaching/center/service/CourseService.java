@@ -1,10 +1,9 @@
 package com.coaching.center.service;
 
 import com.coaching.center.model.Course;
-import com.coaching.center.model.CourseOutput;
 
 public interface CourseService {
-    Course getCourseById(String id);
+    String createCourse(Course course);
 
-    CourseOutput createCourse(Course course);
+    Course getCourseById(String id);
 }

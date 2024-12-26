@@ -5,5 +5,3 @@ com\coaching\center\service\impl\CourseServiceImpl.class
 com\coaching\center\repository\impl\CourseRepositoryImpl.class
 com\coaching\center\model\Course.class
 com\coaching\center\CoachingCenterApplication.class
-com\coaching\center\model\CrashCourse.class
-com\coaching\center\service\impl\CourseServiceV2Impl.class
