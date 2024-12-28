@@ -1,9 +1,16 @@
 package com.coaching.center.service;
 
+import com.coaching.center.entity.CourseEntity;
 import com.coaching.center.model.Course;
 
-public interface CourseService {
-    String createCourse(Course course);
+import java.util.List;
 
-    Course getCourseById(String id);
+public interface CourseService {
+    Long createCourse(Course course);
+    Course getCourseById(Long id);
+    List<CourseEntity> getAllCourses();
+
+    CourseEntity updateCourse(Long id , Course course);
+    boolean deleteCourseById(Long id);
+
 }

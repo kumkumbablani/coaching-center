@@ -1,7 +1,16 @@
 com\coaching\center\service\CourseService.class
 com\coaching\center\repository\CourseRepository.class
 com\coaching\center\controller\CourseController.class
+com\coaching\center\entity\CourseEntity$CourseEntityBuilder.class
+com\coaching\center\util\Message.class
+com\coaching\center\converter\CourseConverter.class
+com\coaching\center\entity\CourseEntity.class
+com\coaching\center\exception\CourseAlreadyExistsException.class
+com\coaching\center\exception\CourseNotFoundException.class
+com\coaching\center\validator\CourseValidator.class
 com\coaching\center\service\impl\CourseServiceImpl.class
-com\coaching\center\repository\impl\CourseRepositoryImpl.class
+com\coaching\center\exception\GlobalExceptionHandler.class
 com\coaching\center\model\Course.class
+com\coaching\center\model\Course$CourseBuilder.class
 com\coaching\center\CoachingCenterApplication.class
+com\coaching\center\exception\MissingMandatoryFieldException.class
