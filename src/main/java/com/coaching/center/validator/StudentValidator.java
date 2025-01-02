@@ -2,14 +2,9 @@ package com.coaching.center.validator;
 
 import com.coaching.center.entity.StudentEntity;
 import com.coaching.center.exception.DuplicateStudentException;
-import com.coaching.center.exception.MissingMandatoryFieldException;
-import lombok.experimental.UtilityClass;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class StudentValidator {

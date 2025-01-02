@@ -9,4 +9,6 @@ public class DuplicateStudentException extends RuntimeException{
         super("A student with email " + email + " or contact number " + contactNumber + " already exists.");
     }
 
+
+
 }
