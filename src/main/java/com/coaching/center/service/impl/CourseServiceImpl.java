@@ -2,8 +2,8 @@ package com.coaching.center.service.impl;
 
 import com.coaching.center.converter.CourseConverter;
 import com.coaching.center.entity.CourseEntity;
-import com.coaching.center.exception.CourseAlreadyExistsException;
 import com.coaching.center.exception.CourseNotFoundException;
+import com.coaching.center.exception.DuplicateStudentException;
 import com.coaching.center.model.Course;
 import com.coaching.center.repository.CourseRepository;
 import com.coaching.center.service.CourseService;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -75,6 +74,6 @@ public class CourseServiceImpl implements CourseService {
 
     private void validateDuplicateCourseName(String courseName, List<CourseEntity> existingCourses) {
         if(existingCourses.stream().anyMatch(c -> c.getName()!= null && c.getName().equalsIgnoreCase(courseName)))
-            throw new CourseAlreadyExistsException("Course with name "+ courseName + " already exists");
+            throw new DuplicateStudentException("Course with name "+ courseName + " already exists");
     }
 }

@@ -1,6 +1,8 @@
 server:
-  port: 8085
+    port: 8085
 spring:
+  jackson:
+    date-format: "dd.MM.yyyy"
   datasource:
     url: jdbc:mysql://localhost:3306/coaching_center
     username: root

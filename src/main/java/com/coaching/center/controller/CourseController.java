@@ -16,8 +16,6 @@ import java.util.List;
 public class CourseController {
     @Autowired
     private CourseService courseService;
-    @Autowired
-    private CourseRepository courseRepository;
 
     @PostMapping
     public ResponseEntity<Long> createCourse(@RequestBody Course course) {
