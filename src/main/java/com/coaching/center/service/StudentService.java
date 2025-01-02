@@ -15,7 +15,7 @@ public interface StudentService {
 
     Student getStudentByEmail(String email);
 
-    StudentEntity updateStudent(Long id , Student student) throws Throwable;
+    StudentEntity updateStudent(Long id , Student student) ;
 
     boolean deleteStudentById(Long id);
 }

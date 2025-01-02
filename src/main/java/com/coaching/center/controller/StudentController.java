@@ -32,4 +32,20 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getStudentById(id));
     }
 
+    @GetMapping("email/{email}")
+    public ResponseEntity<Student> getStudentByEmail(@PathVariable String email){
+       return ResponseEntity.ok(studentService.getStudentByEmail(email));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<StudentEntity> updateStudent(@PathVariable Long id , @RequestBody Student student){
+        return ResponseEntity.ok(studentService.updateStudent(id , student));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteStudentById(Long id){
+        boolean isDeleted = studentService.deleteStudentById(id);
+
+        return ResponseEntity.noContent().build();
+    }
 }

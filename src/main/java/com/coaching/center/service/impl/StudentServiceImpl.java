@@ -59,7 +59,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentEntity updateStudent(Long id, Student student) throws Throwable {
+    public StudentEntity updateStudent(Long id, Student student) {
         StudentEntity existingstudentEntity = (StudentEntity) studentRepository.findById(id)
                 .orElseThrow(() -> new StudentNotFoundException("Student not found with id : " + id));
 
