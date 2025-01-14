@@ -5,7 +5,6 @@ com\coaching\center\util\Message.class
 com\coaching\center\converter\StudentConverter.class
 com\coaching\center\repository\StudentRepository.class
 com\coaching\center\entity\CourseEntity.class
-com\coaching\center\exception\CourseAlreadyExistsException.class
 com\coaching\center\validator\CourseValidator.class
 com\coaching\center\service\impl\CourseServiceImpl.class
 com\coaching\center\model\Course.class

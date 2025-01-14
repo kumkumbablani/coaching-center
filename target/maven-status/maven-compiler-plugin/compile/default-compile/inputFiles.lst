@@ -5,7 +5,6 @@ E:\workspace\coaching-center\src\main\java\com\coaching\center\converter\CourseC
 E:\workspace\coaching-center\src\main\java\com\coaching\center\converter\StudentConverter.java
 E:\workspace\coaching-center\src\main\java\com\coaching\center\entity\CourseEntity.java
 E:\workspace\coaching-center\src\main\java\com\coaching\center\entity\StudentEntity.java
-E:\workspace\coaching-center\src\main\java\com\coaching\center\exception\CourseAlreadyExistsException.java
 E:\workspace\coaching-center\src\main\java\com\coaching\center\exception\CourseNotFoundException.java
 E:\workspace\coaching-center\src\main\java\com\coaching\center\exception\DuplicateStudentException.java
 E:\workspace\coaching-center\src\main\java\com\coaching\center\exception\GlobalExceptionHandler.java

@@ -8,12 +8,11 @@ import java.time.LocalDate;
 @Data
 @Builder
 public class Student {
-        private Long studentId;
-        private String fullName;
+        private Long id;
+        private String name;
         private LocalDate dateOfBirth;
         private String contactNumber;
         private String email;
         private String address;
-        private LocalDate registrationDate = LocalDate.now();
     }
 

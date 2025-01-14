@@ -1,12 +1,13 @@
 package com.coaching.center.validator;
 
+import com.coaching.center.entity.StudentEntity;
+import com.coaching.center.exception.DuplicateStudentException;
 import com.coaching.center.exception.MissingMandatoryFieldException;
 import com.coaching.center.model.Course;
 import com.coaching.center.model.Student;
 import io.micrometer.common.util.StringUtils;
 import lombok.experimental.UtilityClass;
 
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Validator {
 
     public static void validateStudent(Student student) {
         List<String> errors = new ArrayList<>();
-        if (StringUtils.isBlank(student.getFullName()))
+        if (StringUtils.isBlank(student.getName()))
             errors.add(MSG_EMPTY_STUDENT_NAME);
         if (StringUtils.isBlank(student.getEmail()))
             errors.add(MSG_EMPTY_STUDENT_EMAIL);
@@ -35,17 +36,18 @@ public class Validator {
             errors.add(MSG_EMPTY_STUDENT_DOB);
         else if (student.getDateOfBirth().isAfter(LocalDate.now()))
             errors.add(MSG_INVALID_STUDENT_DOB);
-        if (StringUtils.isBlank(student.getContactNumber()))
-            errors.add(MSG_EMPTY_CONTACT_NUMBER);
-        else if (student.getContactNumber().length() != 10)
+        if (!validateContactNumber(student.getContactNumber()))
             errors.add(MSG_INVALID_CONTACT_NUMBER);
-        if (student.getStudentId() == null || student.getStudentId() <= 0)
-            errors.add(MSG_INVALID_COURSE_ID);
         if (StringUtils.isBlank(student.getAddress()))
             errors.add(MSG_EMPTY_STUDENT_ADDRESS);
+
         if (!errors.isEmpty())
             throw new MissingMandatoryFieldException("Mandatory fields are missing", errors);
     }
 
+    public static void validateDuplicateStudentEmail(String email , List<StudentEntity> existingStudents) {
+        if (existingStudents.stream().anyMatch(s -> s.getName() != null && s.getName().equalsIgnoreCase(email))) {
+            throw new DuplicateStudentException("Student with email " + email + " already exists");
+        }
+    }
 }
-

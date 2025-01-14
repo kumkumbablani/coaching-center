@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class StudentValidator {
     public void validateDuplicateStudentName(String fullName, List<StudentEntity> existingStudents) {
-        if (existingStudents.stream().anyMatch(s -> s.getFullName() != null && s.getFullName().equalsIgnoreCase(fullName))) {
+        if (existingStudents.stream().anyMatch(s -> s.getName() != null && s.getName().equalsIgnoreCase(fullName))) {
             throw new DuplicateStudentException("Student with name " + fullName + " already exists");
         }
     }

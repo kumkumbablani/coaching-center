@@ -2,41 +2,38 @@ package com.coaching.center.service.impl;
 
 import com.coaching.center.converter.StudentConverter;
 import com.coaching.center.entity.StudentEntity;
-import com.coaching.center.exception.CourseNotFoundException;
 import com.coaching.center.exception.DuplicateStudentException;
 import com.coaching.center.exception.StudentNotFoundException;
 import com.coaching.center.model.Student;
+import com.coaching.center.model.UpdateStudentModel;
 import com.coaching.center.repository.StudentRepository;
 import com.coaching.center.service.StudentService;
-import com.coaching.center.validator.StudentValidator;
 import com.coaching.center.validator.Validator;
-import jakarta.annotation.PostConstruct;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-    private final StudentRepository studentRepository;
-
-    private List<StudentEntity> existingStudents;
     @Autowired
-    public StudentServiceImpl(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    private StudentRepository studentRepository;
 
     @Override
     public Long registerStudent(Student student) {
-       Validator.validateStudent(student);
-       validateDuplicateStudentName(student.getFullName() , existingStudents);
-       return studentRepository.save(StudentConverter.convert(student)).getStudentId();
+        Validator.validateStudent(student);
+        Validator.validateDuplicateStudentEmail(student.getEmail() , studentRepository.findAll());
+        StudentEntity studentEntity = StudentConverter.convert(student);
+        studentEntity.setRegistrationDate(LocalDateTime.now());
+        return studentRepository.save(studentEntity).getId();
     }
 
     @Override
-    public List<StudentEntity> getAllStudents() {
-        return studentRepository.findAll();
+    public List<Student> getAllStudents() {
+        return StudentConverter.convert(studentRepository.findAll());
     }
 
     @Override
@@ -49,41 +46,34 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student getStudentByEmail(String email) {
-        Student student = studentRepository.findByEmail(email);
-
-        if (student != null){
+        Optional<StudentEntity> studentEntity = studentRepository.findByEmail(email);
+        if (studentEntity.isPresent()){
             throw new DuplicateStudentException("Student with email " + email + " already exists.");
         }
-
-        return student;
+        return StudentConverter.convert(studentEntity.get());
     }
 
     @Override
-    public StudentEntity updateStudent(Long id, Student student) {
-        StudentEntity existingstudentEntity = (StudentEntity) studentRepository.findById(id)
-                .orElseThrow(() -> new StudentNotFoundException("Student not found with id : " + id));
+    public Student updateStudent(Long id, UpdateStudentModel student) {
+        StudentEntity existingstudentEntity = studentRepository.findById(id)
+                .orElseThrow(() -> new StudentNotFoundException("Student not found with id : "));
 
-        existingstudentEntity.setFullName(student.getFullName());
-        existingstudentEntity.setDateOfBirth(student.getDateOfBirth());
-        existingstudentEntity.setEmail(student.getEmail());
-        existingstudentEntity.setAddress(student.getAddress());
-
-        StudentEntity updatedStudentEntity = (StudentEntity) studentRepository.save(existingstudentEntity);
-        return updatedStudentEntity;
+        if(StringUtils.isNotEmpty(student.getName()))
+            existingstudentEntity.setName(student.getName());
+        if(StringUtils.isNotEmpty(student.getAddress()))
+            existingstudentEntity.setAddress(student.getAddress());
+        if(StringUtils.isNotEmpty(student.getEmail()))
+            existingstudentEntity.setName(student.getEmail());
+        if(StringUtils.isNotEmpty(student.getContactNumber()))
+            existingstudentEntity.setAddress(student.getContactNumber());
+        return StudentConverter.convert(studentRepository.save(existingstudentEntity));
     }
 
     @Override
-    public boolean deleteStudentById(Long id) {
+    public void deleteStudentById(Long id) {
         if (!studentRepository.existsById(id)) {
-            throw new CourseNotFoundException("Course not found with id: " + id);
+            throw new StudentNotFoundException("Student not found with id: " + id);
         }
         studentRepository.deleteById(id);
-        return false;
-    }
-
-    public void validateDuplicateStudentName(String fullName, List<StudentEntity> existingStudents) {
-        if (existingStudents.stream().anyMatch(s -> s.getFullName() != null && s.getFullName().equalsIgnoreCase(fullName))) {
-            throw new DuplicateStudentException("Student with name " + fullName + " already exists");
-        }
     }
 }

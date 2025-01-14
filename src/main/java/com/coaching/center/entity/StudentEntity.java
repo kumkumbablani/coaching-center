@@ -1,7 +1,5 @@
 package com.coaching.center.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -20,27 +19,25 @@ import java.time.LocalDate;
         @UniqueConstraint(columnNames = "address")
 })
 public class StudentEntity {
-
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long studentId;
+        private Long id;
 
-        @Column(nullable = false, length = 100)
-        private String fullName;
+        @Column(length = 100)
+        private String name;
 
-        @Column(nullable = false)
+        @Column(name = "dob")
         private LocalDate dateOfBirth;
 
-        @Column(nullable = false, unique = true, length = 15)
+        @Column(name = "contact_number" , unique = true, length = 15)
         private String contactNumber;
 
-        @Column(nullable = false, unique = true, length = 100)
+        @Column(unique = true, length = 100)
         private String email;
 
         @Column
         private String address;
 
-        @Column(nullable = false)
-        private LocalDate registrationDate = LocalDate.now();
+        @Column(name = "registration_date")
+        private LocalDateTime registrationDate;
     }
-

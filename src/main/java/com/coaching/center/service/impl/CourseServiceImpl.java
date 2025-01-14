@@ -18,20 +18,12 @@ import java.util.Optional;
 @Service
 public class CourseServiceImpl implements CourseService {
 
-    private final CourseRepository courseRepository;
-    private List<CourseEntity> existingCourses;
     @Autowired
-    public CourseServiceImpl(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
-    }
-    @PostConstruct
-    public void init() {
-//         Initialize existingCourses after the repository is injected
-        existingCourses = courseRepository.findAll();
-    }
+    private CourseRepository courseRepository;
+    private List<CourseEntity> existingCourses;
     public Long createCourse(Course course) {
         CourseValidator.validateCourse(course);
-        validateDuplicateCourseName(course.getName(), existingCourses);
+        validateDuplicateCourseName(course.getName(), courseRepository.findAll());
         return courseRepository.save(CourseConverter.convert(course)).getId();
     }
 

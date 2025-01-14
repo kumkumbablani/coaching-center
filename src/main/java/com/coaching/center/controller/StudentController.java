@@ -2,6 +2,7 @@ package com.coaching.center.controller;
 
 import com.coaching.center.entity.StudentEntity;
 import com.coaching.center.model.Student;
+import com.coaching.center.model.UpdateStudentModel;
 import com.coaching.center.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<StudentEntity> getAllStudents(){
+    public List<Student> getAllStudents(){
         return studentService.getAllStudents();
     }
 
@@ -38,14 +39,13 @@ public class StudentController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<StudentEntity> updateStudent(@PathVariable Long id , @RequestBody Student student){
-        return ResponseEntity.ok(studentService.updateStudent(id , student));
+    public ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody UpdateStudentModel student){
+        return ResponseEntity.ok(studentService.updateStudent(id, student));
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteStudentById(Long id){
-        boolean isDeleted = studentService.deleteStudentById(id);
-
+    public ResponseEntity<Void> deleteStudentById(@PathVariable Long id){
+        studentService.deleteStudentById(id);
         return ResponseEntity.noContent().build();
     }
 }

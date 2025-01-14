@@ -9,7 +9,6 @@ public interface CourseService {
     Long createCourse(Course course);
     Course getCourseById(Long id);
     List<CourseEntity> getAllCourses();
-
     CourseEntity updateCourse(Long id , Course course);
     boolean deleteCourseById(Long id);
 
